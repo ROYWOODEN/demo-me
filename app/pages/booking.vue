@@ -53,6 +53,7 @@
               </template>
               <v-date-picker
                 v-model="datePickerValue"
+                :min="minDate"
                 @update:model-value="onDateSelect"
               />
             </v-menu>
@@ -106,6 +107,12 @@ const formData = reactive({
 const snackbar = reactive({ show: false, message: '', color: 'error' })
 const dateMenu = ref(false)
 const datePickerValue = ref<Date | null>(null)
+
+const minDate = computed(() => {
+  const d = new Date()
+  d.setHours(0, 0, 0, 0)
+  return d
+})
 
 function showSnackbar(message: string, color = 'error') {
   snackbar.message = message

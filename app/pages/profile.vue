@@ -35,11 +35,39 @@
 
         <!-- Заявки -->
         <v-card class="pa-6" elevation="2">
-          <v-card-title class="pa-0 mb-4">Мои заявки</v-card-title>
-          <v-card-text class="pa-0 text-medium-emphasis">
+          <div class="d-flex align-center justify-space-between mb-4">
+            <v-card-title class="pa-0">Мои заявки</v-card-title>
+            <v-btn variant="tonal" color="primary" size="small" to="/booking">
+              + Новая заявка
+            </v-btn>
+          </div>
+
+          <v-skeleton-loader v-if="bookingsPending" type="list-item-three-line" />
+
+          <template v-else-if="bookings && bookings.length > 0">
+            <v-card
+              v-for="b in bookings"
+              :key="b.id"
+              variant="outlined"
+              class="mb-3 pa-4"
+            >
+              <div class="d-flex align-center justify-space-between flex-wrap gap-2">
+                <div>
+                  <div class="text-body-1 font-weight-medium">{{ b.room }}</div>
+                  <div class="text-body-2 text-medium-emphasis mt-1">
+                    {{ formatDate(b.date) }} · {{ formatEnum(b.payment_method) }}
+                  </div>
+                </div>
+                <v-chip :color="statusColor(b.status)" size="small">
+                  {{ formatEnum(b.status) }}
+                </v-chip>
+              </div>
+            </v-card>
+          </template>
+
+          <div v-else class="text-medium-emphasis">
             У вас пока нет заявок.
-            <NuxtLink to="/booking">Оформить заявку</NuxtLink>
-          </v-card-text>
+          </div>
         </v-card>
 
       </v-col>
@@ -53,6 +81,26 @@ definePageMeta({ middleware: 'auth' })
 const { pending } = await useCurrentUser()
 const user = computed(() => useUserStore().user)
 
+const { data: bookings, pending: bookingsPending } = await useFetch('/api/bookings')
+
+function formatDate(d: string | Date) {
+  const date = new Date(d)
+  const day = String(date.getDate()).padStart(2, '0')
+  const month = String(date.getMonth() + 1).padStart(2, '0')
+  const year = date.getFullYear()
+  return `${day}.${month}.${year}`
+}
+
+function formatEnum(value: string) {
+  return value.replace(/_/g, ' ')
+}
+
+function statusColor(status: string) {
+  if (status === 'Новая') return 'blue'
+  if (status.includes('назначено')) return 'orange'
+  if (status.includes('завершено')) return 'green'
+  return 'grey'
+}
 
 async function logout() {
   await $fetch('/api/auth/logout', { method: 'POST' })
