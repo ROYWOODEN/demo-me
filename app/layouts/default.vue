@@ -4,6 +4,9 @@
       <v-app-bar-title>Конференции.РФ</v-app-bar-title>
 
       <template v-if="!mobile" #append>
+        <v-btn v-if="isAdmin" to="/admin" variant="tonal" color="warning" class="mr-1">
+          Администратор
+        </v-btn>
         <v-btn to="/profile" variant="text">Личный кабинет</v-btn>
         <v-btn to="/booking" variant="text">Подать заявку</v-btn>
         <v-btn
@@ -23,6 +26,10 @@
 
     <ClientOnly>
       <v-bottom-navigation v-if="mobile" grow>
+        <v-btn v-if="isAdmin" to="/admin" color="warning">
+          <v-icon>mdi-shield-account</v-icon>
+          <span>Админ</span>
+        </v-btn>
         <v-btn to="/profile">
           <v-icon>mdi-account</v-icon>
           <span>Кабинет</span>
@@ -44,9 +51,14 @@
 import { useDisplay } from "vuetify";
 
 const { mobile } = useDisplay();
+const store = useUserStore();
+const isAdmin = computed(() => store.user?.role === 'admin');
+const { fetch: refreshSession } = useUserSession();
 
 async function logout() {
   await $fetch("/api/auth/logout", { method: "POST" });
+  store.clear();
+  await refreshSession();
   await navigateTo("/login");
 }
 </script>

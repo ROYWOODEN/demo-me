@@ -102,9 +102,12 @@ function statusColor(status: string) {
   return 'grey'
 }
 
+const { fetch: refreshSession } = useUserSession()
+
 async function logout() {
   await $fetch('/api/auth/logout', { method: 'POST' })
   useUserStore().clear()
+  await refreshSession()
   await navigateTo('/login')
 }
 </script>
