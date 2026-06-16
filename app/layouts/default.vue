@@ -6,13 +6,18 @@
       <template v-if="!mobile" #append>
         <v-btn to="/profile" variant="text">Личный кабинет</v-btn>
         <v-btn to="/booking" variant="text">Подать заявку</v-btn>
-        <v-btn variant="outlined" color="error" class="ml-2 mr-2" @click="logout">
+        <v-btn
+          variant="outlined"
+          color="error"
+          class="ml-2 mr-2"
+          @click="logout"
+        >
           Выйти
         </v-btn>
       </template>
     </v-app-bar>
 
-    <v-main style="padding-top: 64px;">
+    <v-main style="padding-top: 64px">
       <slot />
     </v-main>
 
@@ -36,12 +41,12 @@
 </template>
 
 <script setup lang="ts">
-import { useDisplay } from 'vuetify'
+import { useDisplay } from "vuetify";
 
-const { mobile } = useDisplay()
+const { mobile } = useDisplay();
 
 async function logout() {
-  await $fetch('/api/auth/logout', { method: 'POST' })
-  await navigateTo('/login')
+  await $fetch("/api/auth/logout", { method: "POST" });
+  await navigateTo("/login");
 }
 </script>

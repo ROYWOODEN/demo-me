@@ -8,16 +8,47 @@ datasource db {
 }
 
 model users {
-  id        Int     @id @default(autoincrement())
+  id        Int        @id @default(autoincrement())
   full_name String     @db.VarChar(150)
   phone     String     @db.VarChar(11)
   email     String     @db.VarChar(100)
   login     String     @db.VarChar(100)
   password  String     @db.Text
   role      users_role @default(user)
+  bookings  bookings[]
+}
+
+model bookings {
+  id             Int             @id @default(autoincrement()) @db.UnsignedInt
+  user_id        Int
+  room           bookings_room
+  date           DateTime        @db.Date
+  payment_method bookings_payment
+  status         bookings_status @default(Новая)
+  review         String?         @db.Text
+  created_at     DateTime        @default(now())
+  user           users           @relation(fields: [user_id], references: [id])
 }
 
 enum users_role {
   admin
   user
+}
+
+enum bookings_room {
+  Аудитория
+  Коворкинг
+  Кинозал
+}
+
+enum bookings_payment {
+  Наличные
+  Банковская_карта    @map("Банковская карта")
+  Безналичный_расчёт  @map("Безналичный расчёт")
+}
+
+enum bookings_status {
+  Новая
+  Мероприятие_назначено  @map("Мероприятие назначено")
+  Мероприятие_завершено  @map("Мероприятие завершено")
 }

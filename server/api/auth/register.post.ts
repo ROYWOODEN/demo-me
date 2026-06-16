@@ -16,9 +16,14 @@ export default defineEventHandler(async (event) => {
   const { login, password, fullName, phone, email } = result.data;
 
   try {
-    const existing = await prisma.users.findFirst({ where: { login } });
-    if (existing) {
+    const existingLogin = await prisma.users.findFirst({ where: { login } });
+    if (existingLogin) {
       throw createError({ statusCode: 409, message: "Этот логин уже занят" });
+    }
+
+    const existingEmail = await prisma.users.findFirst({ where: { email } });
+    if (existingEmail) {
+      throw createError({ statusCode: 409, message: "Этот e-mail уже зарегистрирован" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
