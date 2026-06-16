@@ -42,6 +42,8 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: 'auth' })
+
 import { loginSchema } from '#shared/validation/auth'
 import { zodFieldRule } from '#shared/validation/utils'
 
@@ -70,6 +72,8 @@ const rules = {
   password: [zodFieldRule(loginSchema.shape.password)],
 }
 
+const { fetch: refreshSession } = useUserSession()
+
 async function handleSubmit() {
   const { valid } = await form.value.validate()
   if (!valid) return
@@ -77,7 +81,7 @@ async function handleSubmit() {
   loading.value = true
   try {
     await $fetch('/api/auth/login', { method: 'POST', body: formData })
-    showSnackbar('Вы успешно вошли', 'success')
+    await refreshSession()
     await navigateTo('/profile')
   } catch (error: any) {
     showSnackbar(error.data?.message ?? 'Ошибка входа')

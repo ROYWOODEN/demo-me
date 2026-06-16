@@ -67,6 +67,8 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({ layout: 'auth' })
+
 import { registerSchema } from '#shared/validation/auth'
 import { zodFieldRule } from '#shared/validation/utils'
 
