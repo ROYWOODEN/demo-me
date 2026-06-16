@@ -4,7 +4,13 @@
       <v-app-bar-title>Конференции.РФ</v-app-bar-title>
 
       <template v-if="!mobile" #append>
-        <v-btn v-if="isAdmin" to="/admin" variant="tonal" color="warning" class="mr-1">
+        <v-btn
+          v-if="isAdmin"
+          to="/admin"
+          variant="tonal"
+          color="warning"
+          class="mr-1"
+        >
           Администратор
         </v-btn>
         <v-btn to="/profile" variant="text">Личный кабинет</v-btn>
@@ -49,11 +55,24 @@
 
 <script setup lang="ts">
 import { useDisplay } from "vuetify";
+import type { CurrentUser } from "~/stores/user";
 
 const { mobile } = useDisplay();
 const store = useUserStore();
-const isAdmin = computed(() => store.user?.role === 'admin');
 const { fetch: refreshSession } = useUserSession();
+const requestFetch = useRequestFetch();
+
+// Инициализация: на любой странице под этим layout подтягиваем юзера в стор.
+// requestFetch форвардит куку сессии на SSR, дальше стор — источник правды.
+if (!store.user) {
+  try {
+    store.user = await requestFetch<CurrentUser>("/api/user/me");
+  } catch {
+    store.user = null;
+  }
+}
+
+const isAdmin = computed(() => store.user?.role === "admin");
 
 async function logout() {
   await $fetch("/api/auth/logout", { method: "POST" });

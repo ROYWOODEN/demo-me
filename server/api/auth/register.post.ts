@@ -23,7 +23,10 @@ export default defineEventHandler(async (event) => {
 
     const existingEmail = await prisma.users.findFirst({ where: { email } });
     if (existingEmail) {
-      throw createError({ statusCode: 409, message: "Этот e-mail уже зарегистрирован" });
+      throw createError({
+        statusCode: 409,
+        message: "Этот e-mail уже зарегистрирован",
+      });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);

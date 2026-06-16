@@ -14,13 +14,6 @@ export const useUserStore = defineStore('user', {
     user: null as CurrentUser | null,
   }),
   actions: {
-    async fetchUser() {
-      try {
-        this.user = await $fetch<CurrentUser>('/api/user/me')
-      } catch {
-        this.user = null
-      }
-    },
     clear() {
       this.user = null
     },

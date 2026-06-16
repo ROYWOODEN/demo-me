@@ -1,28 +1,31 @@
-import { bookingSchema } from '#shared/validation/booking'
-import { prisma } from '../../utils/prisma'
+import { bookingSchema } from "#shared/validation/booking";
+import { prisma } from "../../utils/prisma";
 
 const paymentMap: Record<string, string> = {
-  'Наличные': 'Наличные',
-  'Банковская карта': 'Банковская_карта',
-  'Безналичный расчёт': 'Безналичный_расчёт',
-}
+  Наличные: "Наличные",
+  "Банковская карта": "Банковская_карта",
+  "Безналичный расчёт": "Безналичный_расчёт",
+};
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
+  const session = await getUserSession(event);
   if (!session.user) {
-    throw createError({ statusCode: 401, message: 'Не авторизован' })
+    throw createError({ statusCode: 401, message: "Не авторизован" });
   }
 
-  const body = await readBody(event)
-  const result = bookingSchema.safeParse(body)
+  const body = await readBody(event);
+  const result = bookingSchema.safeParse(body);
   if (!result.success) {
-    throw createError({ statusCode: 400, message: result.error.issues[0]?.message })
+    throw createError({
+      statusCode: 400,
+      message: result.error.issues[0]?.message,
+    });
   }
 
-  const { room, date, paymentMethod } = result.data
+  const { room, date, paymentMethod } = result.data;
 
-  const parts = date.split('.')
-  const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`
+  const parts = date.split(".");
+  const isoDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
 
   try {
     const booking = await prisma.bookings.create({
@@ -31,14 +34,17 @@ export default defineEventHandler(async (event) => {
         room: room as any,
         date: new Date(isoDate),
         payment_method: paymentMap[paymentMethod] as any,
-        status: 'Новая' as any,
+        status: "Новая" as any,
       },
-    })
+    });
 
-    return { success: true, id: booking.id }
+    return { success: true, id: booking.id };
   } catch (error: any) {
-    if (error.statusCode) throw error
-    console.error('[bookings/create]', error)
-    throw createError({ statusCode: 500, message: error?.message ?? 'Ошибка при создании заявки' })
+    if (error.statusCode) throw error;
+    console.error("[bookings/create]", error);
+    throw createError({
+      statusCode: 500,
+      message: error?.message ?? "Ошибка при создании заявки",
+    });
   }
-})
+});

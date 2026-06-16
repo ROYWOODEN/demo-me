@@ -14,3 +14,13 @@ export const bookingSchema = z.object({
 })
 
 export type BookingData = z.infer<typeof bookingSchema>
+
+export const reviewSchema = z.object({
+  review: z
+    .string()
+    .trim()
+    .min(1, 'Отзыв не может быть пустым')
+    .max(1000, 'Отзыв не должен превышать 1000 символов'),
+})
+
+export type ReviewData = z.infer<typeof reviewSchema>

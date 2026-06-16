@@ -1,75 +1,83 @@
-# Nuxt Minimal Starter
+# Конференции.РФ
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Информационная система для бронирования помещений (аудитория, коворкинг, кинозал)
+для проведения Всероссийских конференций.
 
-## Setup
+Демонстрационный экзамен 09.02.07 — Вариант 2.
 
-Make sure to install dependencies:
+## Стек
 
-```bash
-# npm
-npm install
+- **Nuxt 4** (Vue 3, SSR) + **Vuetify** (тёмная тема)
+- **Prisma** + **MySQL**
+- **nuxt-auth-utils** — сессии (шифрованная кука)
+- **Pinia** — состояние пользователя
+- **Zod** — валидация (клиент + сервер)
+- **bcryptjs** — хэширование паролей
 
-# pnpm
-pnpm install
+## ER-диаграмма
 
-# yarn
-yarn install
+```mermaid
+erDiagram
+    users ||--o{ bookings : "создаёт"
 
-# bun
-bun install
+    users {
+        int id PK
+        string full_name "ФИО"
+        string phone "телефон, 11 цифр"
+        string email "e-mail (уникальный)"
+        string login "логин (уникальный)"
+        string password "bcrypt-хэш"
+        enum role "admin | user"
+    }
+
+    bookings {
+        int id PK
+        int user_id FK
+        enum room "Аудитория | Коворкинг | Кинозал"
+        date date "дата начала конференции"
+        enum payment_method "Наличные | Банковская карта | Безналичный расчёт"
+        enum status "Новая | Мероприятие назначено | Мероприятие завершено"
+        string review "отзыв, nullable"
+        datetime created_at "дата подачи"
+    }
 ```
 
-## Development Server
+**Связь:** один пользователь — много заявок (1:N). Отзыв хранится полем `review`
+на заявке (отзыв привязан к конкретному бронированию).
 
-Start the development server on `http://localhost:3000`:
+## Запуск
 
-```bash
-# npm
-npm run dev
+1. Установить зависимости:
+   ```bash
+   npm install
+   ```
 
-# pnpm
-pnpm dev
+2. Создать `.env` в корне:
+   ```env
+   DATABASE_URL="mysql://root:password@localhost:3306/conferences"
+   NUXT_SESSION_PASSWORD="строка-минимум-32-символа-для-шифрования-куки"
+   ```
 
-# yarn
-yarn dev
+3. Применить схему к БД и сгенерировать клиент:
+   ```bash
+   npx prisma db push
+   ```
 
-# bun
-bun run dev
-```
+4. Создать аккаунт администратора (логин `Admin26`, пароль `Demo20`):
+   ```bash
+   npm run seed
+   ```
 
-## Production
+5. Запустить dev-сервер (слушает все интерфейсы для доступа по локальной сети):
+   ```bash
+   npm run dev
+   ```
 
-Build the application for production:
+## Роли и доступ
 
-```bash
-# npm
-npm run build
+- **Пользователь** — регистрация, подача заявок, просмотр своих заявок, отзывы.
+- **Администратор** (`Admin26` / `Demo20`) — панель `/admin`: все заявки,
+  фильтры, сортировка, пагинация, смена статуса.
 
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+Доступ к админке проверяется и на клиенте (middleware), и на сервере
+(роль читается из БД, а не из куки).

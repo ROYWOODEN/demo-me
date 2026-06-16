@@ -3,5 +3,6 @@
 </template>
 
 <script setup lang="ts">
-await navigateTo('/login', { replace: true })
+definePageMeta({ layout: false });
+await navigateTo("/login", { replace: true });
 </script>

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8E24AA"/>
+      <stop offset="1" stop-color="#4A148C"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="675" fill="url(#g)"/>
+  <circle cx="600" cy="262" r="115" fill="#ffffff" opacity="0.12"/>
+  <circle cx="600" cy="262" r="72" fill="none" stroke="#ffffff" stroke-width="10"/>
+  <polygon points="582,228 582,296 642,262" fill="#ffffff"/>
+  <text x="600" y="475" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="700" fill="#ffffff">Кинозал</text>
+  <text x="600" y="528" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#ffffff" opacity="0.85">Конференции.РФ</text>
+</svg>
