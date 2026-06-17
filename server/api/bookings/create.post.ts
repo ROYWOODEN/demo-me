@@ -1,11 +1,6 @@
 import { bookingSchema } from "#shared/validation/booking";
+import { INITIAL_STATUS } from "#shared/domain";
 import { prisma } from "../../utils/prisma";
-
-const paymentMap: Record<string, string> = {
-  Наличные: "Наличные",
-  "Банковская карта": "Банковская_карта",
-  "Безналичный расчёт": "Безналичный_расчёт",
-};
 
 export default defineEventHandler(async (event) => {
   const session = await getUserSession(event);
@@ -33,8 +28,8 @@ export default defineEventHandler(async (event) => {
         user_id: session.user.id,
         room: room as any,
         date: new Date(isoDate),
-        payment_method: paymentMap[paymentMethod] as any,
-        status: "Новая" as any,
+        payment_method: paymentMethod as any,
+        status: INITIAL_STATUS as any,
       },
     });
 

@@ -21,7 +21,7 @@
             <v-select
               v-model="filterRoom"
               label="Помещение"
-              :items="rooms"
+              :items="ROOM_ITEMS"
               variant="outlined"
               density="compact"
               hide-details
@@ -32,9 +32,7 @@
             <v-select
               v-model="filterStatus"
               label="Статус"
-              :items="statuses"
-              item-title="label"
-              item-value="value"
+              :items="STATUS_ITEMS"
               variant="outlined"
               density="compact"
               hide-details
@@ -101,16 +99,14 @@
             </td>
             <td>{{ b.room }}</td>
             <td>{{ formatDate(b.date) }}</td>
-            <td>{{ formatEnum(b.payment_method) }}</td>
+            <td>{{ paymentLabel(b.payment_method) }}</td>
             <td class="text-medium-emphasis">
               {{ formatDateTime(b.created_at) }}
             </td>
             <td>
               <v-select
                 :model-value="b.status"
-                :items="statuses"
-                item-title="label"
-                item-value="value"
+                :items="STATUS_ITEMS"
                 variant="outlined"
                 density="compact"
                 hide-details
@@ -160,12 +156,7 @@
 <script setup lang="ts">
 definePageMeta({ middleware: "admin" });
 
-const rooms = ["Аудитория", "Коворкинг", "Кинозал"];
-const statuses = [
-  { label: "Новая", value: "Новая" },
-  { label: "Мероприятие назначено", value: "Мероприятие_назначено" },
-  { label: "Мероприятие завершено", value: "Мероприятие_завершено" },
-];
+import { ROOM_ITEMS, STATUS_ITEMS, paymentLabel } from "#shared/domain";
 
 const perPage = 10;
 
@@ -275,10 +266,6 @@ function formatDateTime(d: string | Date) {
   const h = String(date.getHours()).padStart(2, "0");
   const m = String(date.getMinutes()).padStart(2, "0");
   return `${formatDate(d)} ${h}:${m}`;
-}
-
-function formatEnum(value: string) {
-  return value.replace(/_/g, " ");
 }
 
 async function updateStatus(id: number, status: string) {

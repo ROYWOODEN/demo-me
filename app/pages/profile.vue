@@ -83,11 +83,11 @@
                   <div class="text-body-1 font-weight-medium">{{ b.room }}</div>
                   <div class="text-body-2 text-medium-emphasis mt-1">
                     {{ formatDate(b.date) }} ·
-                    {{ formatEnum(b.payment_method) }}
+                    {{ paymentLabel(b.payment_method) }}
                   </div>
                 </div>
                 <v-chip :color="statusColor(b.status)" size="small">
-                  {{ formatEnum(b.status) }}
+                  {{ statusLabel(b.status) }}
                 </v-chip>
               </div>
 
@@ -121,7 +121,7 @@
               </template>
 
               <!-- Можно оставить отзыв (только после завершения мероприятия) -->
-              <template v-else-if="b.status === 'Мероприятие_завершено'">
+              <template v-else-if="b.status === REVIEW_STATUS">
                 <v-divider class="my-3" />
                 <v-btn
                   variant="tonal"
@@ -204,6 +204,13 @@
 <script setup lang="ts">
 definePageMeta({ middleware: "auth" });
 
+import {
+  REVIEW_STATUS,
+  statusColor,
+  statusLabel,
+  paymentLabel,
+} from "#shared/domain";
+
 const user = computed(() => useUserStore().user);
 
 const slides = [
@@ -225,17 +232,6 @@ function formatDate(d: string | Date) {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
   return `${day}.${month}.${year}`;
-}
-
-function formatEnum(value: string) {
-  return value.replace(/_/g, " ");
-}
-
-function statusColor(status: string) {
-  if (status === "Новая") return "blue";
-  if (status.includes("назначено")) return "orange";
-  if (status.includes("завершено")) return "green";
-  return "grey";
 }
 
 // --- Отзывы ---

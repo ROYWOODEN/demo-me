@@ -12,7 +12,7 @@
             <v-select
               v-model="formData.room"
               label="Помещение"
-              :items="rooms"
+              :items="ROOM_ITEMS"
               :rules="rules.room"
               variant="outlined"
               class="mb-2"
@@ -42,7 +42,7 @@
             <v-select
               v-model="formData.paymentMethod"
               label="Способ оплаты"
-              :items="paymentMethods"
+              :items="PAYMENT_ITEMS"
               :rules="rules.paymentMethod"
               variant="outlined"
               class="mb-4"
@@ -76,11 +76,10 @@
 <script setup lang="ts">
 definePageMeta({ middleware: "auth" });
 
+import { ROOM_ITEMS, PAYMENT_ITEMS } from "#shared/domain";
+
 const form = ref();
 const loading = ref(false);
-
-const rooms = ["Аудитория", "Коворкинг", "Кинозал"];
-const paymentMethods = ["Наличные", "Банковская карта", "Безналичный расчёт"];
 
 const formData = reactive({
   room: "",

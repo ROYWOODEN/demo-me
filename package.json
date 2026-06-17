@@ -8,7 +8,9 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "seed": "node prisma/seed.mjs"
+    "seed": "node prisma/seed.mjs",
+    "db:push": "prisma db push",
+    "db:setup": "prisma db push && node prisma/seed.mjs"
   },
   "prisma": {
     "seed": "node prisma/seed.mjs"

@@ -1,4 +1,5 @@
 import { reviewSchema } from '#shared/validation/booking'
+import { REVIEW_STATUS } from '#shared/domain'
 import { prisma } from '../../../utils/prisma'
 
 export default defineEventHandler(async (event) => {
@@ -25,7 +26,7 @@ export default defineEventHandler(async (event) => {
       throw createError({ statusCode: 404, message: 'Заявка не найдена' })
     }
 
-    if (booking.status !== 'Мероприятие_завершено') {
+    if (booking.status !== REVIEW_STATUS) {
       throw createError({
         statusCode: 400,
         message: 'Отзыв можно оставить только после завершения мероприятия',

@@ -1,9 +1,10 @@
 import { z } from "zod";
+import { STATUS_VALUES } from "#shared/domain";
 import { prisma } from "../../../utils/prisma";
 import { requireAdmin } from "../../../utils/requireAdmin";
 
 const schema = z.object({
-  status: z.enum(["Новая", "Мероприятие_назначено", "Мероприятие_завершено"]),
+  status: z.enum(STATUS_VALUES),
 });
 
 export default defineEventHandler(async (event) => {
