@@ -62,8 +62,6 @@ const store = useUserStore();
 const { fetch: refreshSession } = useUserSession();
 const requestFetch = useRequestFetch();
 
-// Инициализация: на любой странице под этим layout подтягиваем юзера в стор.
-// requestFetch форвардит куку сессии на SSR, дальше стор — источник правды.
 if (!store.user) {
   try {
     store.user = await requestFetch<CurrentUser>("/api/user/me");

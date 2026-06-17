@@ -4,8 +4,6 @@ export default defineNuxtRouteMiddleware(async () => {
     return navigateTo("/login");
   }
 
-  // Роль берём из БД (как и кнопка в шапке, и серверный requireAdmin),
-  // а не из куки сессии — она хранит роль на момент входа и может быть устаревшей.
   try {
     const user = await useRequestFetch()<{ role: string }>("/api/user/me");
     if (user?.role !== "admin") {

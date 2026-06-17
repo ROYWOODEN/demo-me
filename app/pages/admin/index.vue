@@ -2,7 +2,6 @@
   <v-container class="py-8" fluid>
     <div class="text-h5 mb-6">Все заявки</div>
 
-    <!-- Фильтры -->
     <v-card elevation="2" class="mb-4">
       <v-card-text>
         <v-row dense align="center">
@@ -54,7 +53,6 @@
       </v-card-text>
     </v-card>
 
-    <!-- Таблица -->
     <v-card elevation="2">
       <v-card-title class="pa-4 d-flex align-center ga-2">
         Заявки пользователей
@@ -130,7 +128,6 @@
       </div>
       <div v-else class="pa-6 text-medium-emphasis">Заявок пока нет.</div>
 
-      <!-- Пагинация -->
       <div v-if="totalPages > 1" class="d-flex justify-center pa-4">
         <v-pagination
           v-model="page"
@@ -160,7 +157,6 @@ import { ROOM_ITEMS, STATUS_ITEMS, paymentLabel } from "#shared/domain";
 
 const perPage = 10;
 
-// Все заявки тянем один раз, дальше фильтруем/сортируем/листаем на клиенте
 const {
   data: bookings,
   pending,
@@ -180,7 +176,6 @@ const hasActiveFilters = computed(
   () => !!(search.value || filterRoom.value || filterStatus.value),
 );
 
-// Фильтрация + сортировка
 const processed = computed(() => {
   let list = [...bookings.value];
 
@@ -220,12 +215,10 @@ const paged = computed(() => {
   return processed.value.slice(start, start + perPage);
 });
 
-// При смене фильтров возвращаемся на первую страницу
 watch([search, filterRoom, filterStatus], () => {
   page.value = 1;
 });
 
-// Если страниц стало меньше (после фильтра или смены статуса) — не зависаем на пустой
 watch(totalPages, (tp) => {
   if (page.value > tp) page.value = tp;
 });

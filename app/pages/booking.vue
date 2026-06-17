@@ -4,7 +4,6 @@
       <v-col cols="12" md="8" lg="6">
         <div class="text-h5 mb-6">Оформление заявки</div>
 
-        <!-- Форма -->
         <v-card class="pa-6" elevation="2">
           <v-card-title class="pa-0 mb-4">Выберите параметры</v-card-title>
 

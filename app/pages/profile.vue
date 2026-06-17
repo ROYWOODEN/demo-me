@@ -7,7 +7,6 @@
           <v-btn variant="outlined" color="error" @click="logout">Выйти</v-btn>
         </div>
 
-        <!-- Слайдер -->
         <v-carousel
           cycle
           :interval="3000"
@@ -32,7 +31,6 @@
           </v-carousel-item>
         </v-carousel>
 
-        <!-- Данные профиля -->
         <v-card class="pa-6 mb-6" elevation="2" v-if="user">
           <v-card-title class="pa-0 mb-4">Данные профиля</v-card-title>
           <v-row>
@@ -61,7 +59,6 @@
           </v-row>
         </v-card>
 
-        <!-- Заявки -->
         <v-card class="pa-6" elevation="2">
           <div class="d-flex align-center justify-space-between mb-4">
             <v-card-title class="pa-0">Мои заявки</v-card-title>
@@ -97,7 +94,6 @@
                 </v-chip>
               </div>
 
-              <!-- Уже оставленный отзыв -->
               <template v-if="b.review">
                 <v-divider class="my-3" />
                 <div class="text-caption text-medium-emphasis mb-1">
@@ -126,7 +122,6 @@
                 </div>
               </template>
 
-              <!-- Можно оставить отзыв (только после завершения мероприятия) -->
               <template v-else-if="b.status === REVIEW_STATUS">
                 <v-divider class="my-3" />
                 <v-btn
@@ -148,7 +143,6 @@
     </v-row>
   </v-container>
 
-  <!-- Диалог отзыва -->
   <v-dialog v-model="reviewDialog" max-width="500">
     <v-card>
       <v-card-title class="pt-4">Отзыв о мероприятии</v-card-title>
@@ -182,7 +176,6 @@
     </v-card>
   </v-dialog>
 
-  <!-- Подтверждение удаления отзыва -->
   <v-dialog v-model="deleteDialog" max-width="400">
     <v-card>
       <v-card-title class="pt-4">Удалить отзыв?</v-card-title>
@@ -240,7 +233,6 @@ function formatDate(d: string | Date) {
   return `${day}.${month}.${year}`;
 }
 
-// --- Отзывы ---
 const reviewDialog = ref(false);
 const activeBooking = ref<any>(null);
 const reviewText = ref("");

@@ -3,8 +3,6 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
   modules: ["vuetify-nuxt-module", "nuxt-auth-utils", "@pinia/nuxt"],
-  // Шрифт иконок MDI бандлим локально, а не с CDN — иначе без интернета
-  // (например, по локальной сети) не видно стрелок, точек и всех v-icon.
   css: ["@mdi/font/css/materialdesignicons.css"],
   vuetify: {
     vuetifyOptions: {

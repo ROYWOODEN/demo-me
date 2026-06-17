@@ -122,7 +122,6 @@ const formData = reactive({
 const birthMenu = ref(false);
 const birthPickerValue = ref<Date | null>(null);
 
-// В будущем родиться нельзя — ограничиваем максимум сегодняшним днём
 const maxBirthDate = computed(() => {
   const d = new Date();
   d.setHours(0, 0, 0, 0);
