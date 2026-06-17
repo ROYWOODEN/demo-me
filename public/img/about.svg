@@ -6,8 +6,4 @@
     </linearGradient>
   </defs>
   <rect width="1200" height="675" fill="url(#g)"/>
-  <circle cx="600" cy="262" r="115" fill="#ffffff" opacity="0.12"/>
-  <polygon points="600,190 618,245 676,245 629,280 647,335 600,301 553,335 571,280 524,245 582,245" fill="#ffffff"/>
-  <text x="600" y="475" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="60" font-weight="700" fill="#ffffff">Конференции.РФ</text>
-  <text x="600" y="528" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#ffffff" opacity="0.85">Бронирование помещений</text>
 </svg>

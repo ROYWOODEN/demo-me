@@ -11,17 +11,25 @@
         <v-carousel
           cycle
           :interval="3000"
-          height="300"
+          height="280"
           class="mb-6 rounded-lg"
-          show-arrows="hover"
-          hide-delimiter-background
+          show-arrows="always"
         >
           <v-carousel-item
             v-for="slide in slides"
-            :key="slide"
-            :src="slide"
+            :key="slide.label"
+            :src="slide.img"
             cover
-          />
+          >
+            <div
+              class="d-flex flex-column align-center justify-center fill-height"
+            >
+              <v-icon size="72" color="white" class="mb-3">{{ slide.icon }}</v-icon>
+              <div class="text-h5 font-weight-bold text-white">
+                {{ slide.label }}
+              </div>
+            </div>
+          </v-carousel-item>
         </v-carousel>
 
         <!-- Данные профиля -->
@@ -199,10 +207,10 @@ definePageMeta({ middleware: "auth" });
 const user = computed(() => useUserStore().user);
 
 const slides = [
-  "/img/audience.svg",
-  "/img/coworking.svg",
-  "/img/cinema.svg",
-  "/img/about.svg",
+  { img: "/img/audience.svg", icon: "mdi-school", label: "Аудитория" },
+  { img: "/img/coworking.svg", icon: "mdi-desk", label: "Коворкинг" },
+  { img: "/img/cinema.svg", icon: "mdi-movie", label: "Кинозал" },
+  { img: "/img/about.svg", icon: "mdi-calendar-star", label: "Конференции.РФ" },
 ];
 
 const {

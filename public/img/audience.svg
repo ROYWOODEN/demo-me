@@ -6,13 +6,4 @@
     </linearGradient>
   </defs>
   <rect width="1200" height="675" fill="url(#g)"/>
-  <circle cx="600" cy="262" r="115" fill="#ffffff" opacity="0.12"/>
-  <g fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round">
-    <rect x="525" y="200" width="150" height="110" rx="10"/>
-    <line x1="600" y1="310" x2="600" y2="345"/>
-    <line x1="558" y1="345" x2="642" y2="345"/>
-    <polyline points="552,282 586,244 612,266 652,224"/>
-  </g>
-  <text x="600" y="475" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="700" fill="#ffffff">Аудитория</text>
-  <text x="600" y="528" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="30" fill="#ffffff" opacity="0.85">Конференции.РФ</text>
 </svg>
