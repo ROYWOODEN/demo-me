@@ -1,4 +1,4 @@
-export const ROOMS = ["Аудитория", "Коворкинг", "Кинозал"] as const;
+export const ROOMS = ["Автобус", "Электробус", "Трамвай"] as const;
 
 export const PAYMENT_VALUES = [
   "Наличные",
@@ -13,22 +13,22 @@ export const PAYMENT_LABELS: Record<string, string> = {
 
 export const STATUS_VALUES = [
   "Новая",
-  "Мероприятие_назначено",
-  "Мероприятие_завершено",
+  "Идет_обучение",
+  "Обучение_завершено",
 ] as const;
 export const STATUS_LABELS: Record<string, string> = {
   Новая: "Новая",
-  Мероприятие_назначено: "Мероприятие назначено",
-  Мероприятие_завершено: "Мероприятие завершено",
+  Идет_обучение: "Идет обучение",
+  Обучение_завершено: "Обучение завершено",
 };
 export const STATUS_COLORS: Record<string, string> = {
   Новая: "blue",
-  Мероприятие_назначено: "orange",
-  Мероприятие_завершено: "green",
+  Идет_обучение: "orange",
+  Обучение_завершено: "green",
 };
 
 export const INITIAL_STATUS = "Новая";
-export const REVIEW_STATUS = "Мероприятие_завершено";
+export const REVIEW_STATUS = "Обучение_завершено";
 
 export const ROOM_ITEMS = ROOMS.map((r) => ({ title: r, value: r }));
 export const PAYMENT_ITEMS = PAYMENT_VALUES.map((v) => ({

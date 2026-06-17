@@ -19,7 +19,7 @@
           <v-col cols="6" sm="4" md="3">
             <v-select
               v-model="filterRoom"
-              label="Помещение"
+              label="Вид транспорта"
               :items="ROOM_ITEMS"
               variant="outlined"
               density="compact"
@@ -68,7 +68,7 @@
               # <v-icon size="x-small">{{ sortIcon("id") }}</v-icon>
             </th>
             <th class="text-left">Пользователь</th>
-            <th class="text-left">Помещение</th>
+            <th class="text-left">Вид транспорта</th>
             <th class="text-left cursor-pointer" @click="toggleSort('date')">
               Дата <v-icon size="x-small">{{ sortIcon("date") }}</v-icon>
             </th>

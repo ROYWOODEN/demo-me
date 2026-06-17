@@ -145,7 +145,7 @@
 
   <v-dialog v-model="reviewDialog" max-width="500">
     <v-card>
-      <v-card-title class="pt-4">Отзыв о мероприятии</v-card-title>
+      <v-card-title class="pt-4">Отзыв об обучении</v-card-title>
       <v-card-text>
         <div v-if="activeBooking" class="text-body-2 text-medium-emphasis mb-3">
           {{ activeBooking.room }} · {{ formatDate(activeBooking.date) }}
@@ -213,10 +213,10 @@ import {
 const user = computed(() => useUserStore().user);
 
 const slides = [
-  { img: "/img/audience.svg", icon: "mdi-school", label: "Аудитория" },
-  { img: "/img/coworking.svg", icon: "mdi-desk", label: "Коворкинг" },
-  { img: "/img/cinema.svg", icon: "mdi-movie", label: "Кинозал" },
-  { img: "/img/about.svg", icon: "mdi-calendar-star", label: "Конференции.РФ" },
+  { img: "/img/bus.svg", icon: "mdi-bus", label: "Автобус" },
+  { img: "/img/electrobus.svg", icon: "mdi-bus-electric", label: "Электробус" },
+  { img: "/img/tram.svg", icon: "mdi-tram", label: "Трамвай" },
+  { img: "/img/about.svg", icon: "mdi-steering", label: "Пассажирам.РФ" },
 ];
 
 const {

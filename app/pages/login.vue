@@ -4,7 +4,7 @@
       <v-col cols="12" sm="8" md="5" lg="4">
         <v-card class="pa-6" elevation="4">
           <v-card-title class="text-h5 text-center pb-1"
-            >Конференции.РФ</v-card-title
+            >Пассажирам.РФ</v-card-title
           >
           <v-card-subtitle class="text-center pb-6"
             >Вход в систему</v-card-subtitle

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar elevation="1">
-      <v-app-bar-title>Конференции.РФ</v-app-bar-title>
+      <v-app-bar-title>Пассажирам.РФ</v-app-bar-title>
 
       <template v-if="!mobile" #append>
         <v-btn

@@ -2,7 +2,7 @@
   <v-container class="py-8">
     <v-row justify="center">
       <v-col cols="12" md="8" lg="6">
-        <div class="text-h5 mb-6">Оформление заявки</div>
+        <div class="text-h5 mb-6">Запись на обучение</div>
 
         <v-card class="pa-6" elevation="2">
           <v-card-title class="pa-0 mb-4">Выберите параметры</v-card-title>
@@ -10,7 +10,7 @@
           <v-form ref="form" @submit.prevent="handleSubmit">
             <v-select
               v-model="formData.room"
-              label="Помещение"
+              label="Вид транспорта"
               :items="ROOM_ITEMS"
               :rules="rules.room"
               variant="outlined"
@@ -21,7 +21,7 @@
               <template #activator="{ props }">
                 <v-text-field
                   v-model="formData.date"
-                  label="Дата начала конференции"
+                  label="Дата начала обучения"
                   :rules="rules.date"
                   variant="outlined"
                   class="mb-2"
@@ -111,7 +111,7 @@ function onDateSelect(date: Date) {
 }
 
 const rules = {
-  room: [(v: string) => !!v || "Выберите помещение"],
+  room: [(v: string) => !!v || "Выберите транспорт"],
   date: [(v: string) => !!v || "Укажите дату"],
   paymentMethod: [(v: string) => !!v || "Выберите способ оплаты"],
 };

@@ -29,7 +29,7 @@ export default defineEventHandler(async (event) => {
     if (booking.status !== REVIEW_STATUS) {
       throw createError({
         statusCode: 400,
-        message: 'Отзыв можно оставить только после завершения мероприятия',
+        message: 'Отзыв можно оставить только после завершения обучения',
       })
     }
 

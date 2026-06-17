@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { ROOMS, PAYMENT_VALUES } from '../domain'
 
 export const bookingSchema = z.object({
-  room: z.enum(ROOMS, { error: 'Выберите помещение' }),
+  room: z.enum(ROOMS, { error: 'Выберите транспорт' }),
   date: z
     .string()
     .regex(/^\d{2}\.\d{2}\.\d{4}$/, 'Формат даты: ДД.ММ.ГГГГ'),
