@@ -21,6 +21,9 @@ export const registerSchema = z.object({
     ),
   password: z.string().min(8, "Пароль должен содержать минимум 8 символов"),
   fullName: z.string().min(1, "ФИО обязательно"),
+  birthDate: z
+    .string()
+    .regex(/^\d{2}\.\d{2}\.\d{4}$/, "Укажите дату рождения"),
   phone: z.string().regex(/^\d{11}$/, "Телефон должен содержать ровно 11 цифр"),
   email: z.email("Введите корректный e-mail, например: user@mail.ru"),
 });

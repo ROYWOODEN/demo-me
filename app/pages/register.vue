@@ -35,6 +35,26 @@
               variant="outlined"
               class="mb-2"
             />
+            <v-menu v-model="birthMenu" :close-on-content-click="false">
+              <template #activator="{ props }">
+                <v-text-field
+                  v-model="formData.birthDate"
+                  label="Дата рождения"
+                  :rules="rules.birthDate"
+                  variant="outlined"
+                  class="mb-2"
+                  placeholder="ДД.ММ.ГГГГ"
+                  readonly
+                  v-bind="props"
+                  append-inner-icon="mdi-calendar"
+                />
+              </template>
+              <v-date-picker
+                v-model="birthPickerValue"
+                :max="maxBirthDate"
+                @update:model-value="onBirthSelect"
+              />
+            </v-menu>
             <v-text-field
               v-model="formData.phone"
               label="Контактный номер телефона"
@@ -94,9 +114,28 @@ const formData = reactive({
   login: "",
   password: "",
   fullName: "",
+  birthDate: "",
   phone: "",
   email: "",
 });
+
+const birthMenu = ref(false);
+const birthPickerValue = ref<Date | null>(null);
+
+// В будущем родиться нельзя — ограничиваем максимум сегодняшним днём
+const maxBirthDate = computed(() => {
+  const d = new Date();
+  d.setHours(0, 0, 0, 0);
+  return d;
+});
+
+function onBirthSelect(date: Date) {
+  const d = String(date.getDate()).padStart(2, "0");
+  const m = String(date.getMonth() + 1).padStart(2, "0");
+  const y = date.getFullYear();
+  formData.birthDate = `${d}.${m}.${y}`;
+  birthMenu.value = false;
+}
 
 const snackbar = reactive({
   show: false,
@@ -114,6 +153,7 @@ const rules = {
   login: [zodFieldRule(registerSchema.shape.login)],
   password: [zodFieldRule(registerSchema.shape.password)],
   fullName: [zodFieldRule(registerSchema.shape.fullName)],
+  birthDate: [zodFieldRule(registerSchema.shape.birthDate)],
   phone: [
     (v: string) =>
       /^\d{11}$/.test(v.replace(/\D/g, "")) ||

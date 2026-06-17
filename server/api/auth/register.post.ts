@@ -13,7 +13,11 @@ export default defineEventHandler(async (event) => {
     });
   }
 
-  const { login, password, fullName, phone, email } = result.data;
+  const { login, password, fullName, birthDate, phone, email } = result.data;
+
+  // ДД.ММ.ГГГГ -> ISO для корректной записи в колонку типа Date
+  const [d, m, y] = birthDate.split(".");
+  const birthIso = `${y}-${m}-${d}`;
 
   try {
     const existingLogin = await prisma.users.findFirst({ where: { login } });
@@ -36,6 +40,7 @@ export default defineEventHandler(async (event) => {
         login,
         password: hashedPassword,
         full_name: fullName,
+        birth_date: new Date(birthIso),
         phone: phone.replace(/\D/g, ""),
         email,
       },

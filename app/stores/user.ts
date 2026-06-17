@@ -4,6 +4,7 @@ export interface CurrentUser {
   id: number
   login: string
   full_name: string
+  birth_date: string | null
   phone: string
   email: string
   role: 'admin' | 'user'

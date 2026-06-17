@@ -41,6 +41,12 @@
               <div class="text-body-1">{{ user.full_name }}</div>
             </v-col>
             <v-col cols="12" sm="6">
+              <div class="text-caption text-medium-emphasis">Дата рождения</div>
+              <div class="text-body-1">
+                {{ user.birth_date ? formatDate(user.birth_date) : "—" }}
+              </div>
+            </v-col>
+            <v-col cols="12" sm="6">
               <div class="text-caption text-medium-emphasis">Логин</div>
               <div class="text-body-1">{{ user.login }}</div>
             </v-col>
